@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <!-- <script src="main.js"></script> -->
+    <script>
+      function wait(ms) {
+        return new Promise((resolve, reject) => setTimeout(resolve, ms));
+      }
+
+      function write(text) {
+        const body = document.getElementById("console");
+
+        const el = document.createElement("div");
+        el.textContent = text;
+
+        body.appendChild(el);
+      }
+
+      async function DoLoop() {
+        for (let count = 25; count >= 0; --count) {
+          console.log(count);
+          write(count);
+          await wait(500);
+        }
+      }
+    </script>
+
+    <style>
+      body {
+        font-family: monospace;
+        background: #efefef;
+      }
+
+      .console {
+        background: #333;
+        color: #fff;
+        border-radius: 5px;
+        padding: 5px;
+
+        max-width: 960px;
+        min-height: 400px;
+        max-height: 500px;
+        margin: 100px auto;
+        position: relative;
+      }
+
+      .console-header {
+        padding: 10px 5px;
+      }
+
+      .console-header-controls {
+        position: absolute;
+        top: 5px;
+        right: 10px;
+      }
+
+      .console-header-controls__control {
+        padding: 5px;
+        margin: 10px 0;
+        background: #fff;
+        border-radius: 50%;
+        display: inline-block;
+      }
+
+      .console-header-controls__minimize {
+        background: yellow;
+      }
+
+      .console-header-controls__maximize {
+        background: green;
+      }
+
+      .console-header-controls__close {
+        background: red;
+      }
+
+      .console-body {
+        background: black;
+        color: white;
+        font-family: monospace;
+        border-radius: 5px;
+
+        position: absolute;
+        top: 40px;
+        left: 5px;
+        right: 5px;
+        bottom: 5px;
+        overflow: hidden;
+        overflow-y: auto;
+      }
+
+      .console-body div {
+        margin: 5px;
+        padding: 5px;
+      }
+
+      .console-body div:before {
+        content: "🦄";
+        margin-right: 10px;
+      }
+    </style>
+  </head>
+  <body onload="DoLoop();">
+    <div class="console">
+      <div class="console-header">
+        <div class="console-header__title">
+          My Console
+        </div>
+
+        <div class="console-header-controls">
+          <div
+            class="console-header-controls__control console-header-controls__minimize"
+          ></div>
+          <div
+            class="console-header-controls__control console-header-controls__maximize"
+          ></div>
+          <div
+            class="console-header-controls__control console-header-controls__close"
+          ></div>
+        </div>
+      </div>
+      <div id="console" class="console-body"></div>
+    </div>
+  </body>
+</html>
